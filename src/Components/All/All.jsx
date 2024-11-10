@@ -2,13 +2,17 @@ import React, { useContext, useEffect, useState } from "react";
 import Task from "../../Context/context";
 const All = () => {
   const taskAll = useContext(Task);
-  const [addTask, setAddTask] = useState({
-    id: taskAll.tasks.length + 1,
+  const init = {
+    id: Math.random(),
     name: "",
     active: true,
-  });
+  };
+  const [addTask, setAddTask] = useState(init);
   const handleAdd = () => {
-    taskAll.setTasks((prev) => [...prev, addTask]);
+    if (addTask.name !== "") {
+      taskAll.setTasks((prev) => [...prev, addTask]);
+      setAddTask({ ...init, id: Math.random() });
+    }
   };
 
  const handleActive = (id) => {
@@ -24,6 +28,7 @@ const All = () => {
           onChange={(e) => {
             setAddTask({ ...addTask, name: e.target.value });
           }}
+          value={addTask.name}
           type="text"
           className="w-[80%] h-10 p-3 rounded-lg border-[1px] border-slate-400 outline-none"
           placeholder="Add details"

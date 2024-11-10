@@ -10,8 +10,10 @@ const Active = () => {
   };
   const [addTask, setAddTask] = useState(init);
   const handleAdd = () => {
-    Tasks.setTasks((prev) => [...prev, addTask]);
-    setAddTask({...init,id:Math.random()})
+    if (addTask.name !== "") {
+      Tasks.setTasks((prev) => [...prev, addTask]);
+      setAddTask({ ...init, id: Math.random() });
+    }
   };
   const handleActive = (id) => {
     const update = Tasks.tasks.map((prev) => {
